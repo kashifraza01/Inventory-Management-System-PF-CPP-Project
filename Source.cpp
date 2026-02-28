@@ -6,28 +6,21 @@
 #include <limits>
 
 using namespace std;
-// ======================
+
 // Structure banayi item ke liye
-// ======================
 struct Item {
     string name;
     int quantity;
     double price;
 };
 
-// ======================
-// Input clear karne ka function
-// Ye crash hone se bachata hai
-// ======================
+// Input clear karne ka function,   Ye crash hone se bachata hai
 void clearinput() {
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
-// ======================
-// File se data load karna
-// Program start hote hi file read hogi
-// ======================
+// File se data load karna,  program start hote he file read hogi
 void loadfromfile(vector<Item>& inventory) {
     ifstream file("inventory.txt");
     if (!file) {
@@ -44,10 +37,7 @@ void loadfromfile(vector<Item>& inventory) {
     file.close();
 }
 
-// ======================
-// Data ko file me save karna
-// Program band hone se pehle save hoga
-// ======================
+// Data ko file me save karna, program band hone se pehle save hoga
 void savetofile(const vector<Item>& inventory) {
     ofstream file("inventory.txt");
     for (const auto& i : inventory) {
@@ -57,9 +47,9 @@ void savetofile(const vector<Item>& inventory) {
     }
     file.close();
 }
-// ======================
+
+
 // Naya item add karna
-// ======================
 void additem(vector<Item>& inventory) {
     Item newitem;
 
@@ -226,3 +216,4 @@ int main() {
     } while (choice != 6);
     return 0;
 }
+
