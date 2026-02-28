@@ -4,42 +4,51 @@
 #include <iomanip>
 #include <fstream>
 #include <limits>
+#include <algorithm>
 
 using namespace std;
 
-// Structure banayi item ke liye
-struct Item {
+// yeh structure har item ki information store karega
+struct item {
     string name;
     int quantity;
     double price;
 };
 
-// Input clear karne ka function,   Ye crash hone se bachata hai
+// yeh function input stream ko clear karta hai,  agar user galat input de to program crash nahi karega
 void clearinput() {
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
-// File se data load karna,  program start hote he file read hogi
-void loadfromfile(vector<Item>& inventory) {
+// yeh function string ko lowercase mein convert karta hai,  taake comparison case insensitive ho
+string tolowercase(string str) {
+    transform(str.begin(), str.end(), str.begin(), ::tolower);
+    return str;
+}
+
+// program start hote hi file se data load hoga
+void loadfromfile(vector<item>& inventory) {
     ifstream file("inventory.txt");
-    if (!file) {
-        // Agar file exist nahi karti to simply return
-        return;
-    }
-    Item i;
+
+    // agar file exist nahi karti to simply return
+    if (!file) return;
+
+    item i;
+
     while (getline(file, i.name)) {
         file >> i.quantity;
         file >> i.price;
-        file.ignore(); // newline remove karne ke liye
+        file.ignore();
         inventory.push_back(i);
     }
     file.close();
 }
 
-// Data ko file me save karna, program band hone se pehle save hoga
-void savetofile(const vector<Item>& inventory) {
+// program band hone se pehle data file mein save hoga
+void savetofile(const vector<item>& inventory) {
     ofstream file("inventory.txt");
+
     for (const auto& i : inventory) {
         file << i.name << endl;
         file << i.quantity << endl;
@@ -48,156 +57,159 @@ void savetofile(const vector<Item>& inventory) {
     file.close();
 }
 
-
-// Naya item add karna
-void additem(vector<Item>& inventory) {
-    Item newitem;
+// naya item add karne ka function
+void additem(vector<item>& inventory) {
+    item newitem;
 
     cout << "\nitem ka naam enter karein: ";
-    clearInput();
+    clearinput();
     getline(cin, newitem.name);
 
     cout << "quantity enter karein: ";
     while (!(cin >> newitem.quantity) || newitem.quantity < 0) {
-        cout << "galat input,dubara quantity enter karein: ";
-        clearInput();
+        cout << "galat input, dubara quantity enter karein: ";
+        clearinput();
     }
+
     cout << "price enter karein: ";
     while (!(cin >> newitem.price) || newitem.price < 0) {
         cout << "galat input, dubara price enter karein: ";
-        clearInput();
+        clearinput();
     }
+
     inventory.push_back(newitem);
-    cout << "\nItem successfully add ho gaya!\n";
+    cout << "\nitem successfully add ho gaya!\n";
 }
-// ======================
-// Inventory display karna
-// ======================
-void displayinventory(const vector<Item>& inventory) {
+
+// inventory display karne ka function
+void displayinventory(const vector<item>& inventory) {
     if (inventory.empty()) {
-        cout << "\nInventory khali hai.\n";
+        cout << "\ninventory khali hai.\n";
         return;
     }
-    cout << "\n========= Inventory List =========\n";
-    cout << left << setw(20) << "Name"
-         << setw(10) << "Qty"
-         << setw(10) << "Price\n";
+
+    cout << "\n========= inventory list =========\n";
+    cout << left << setw(20) << "name"
+         << setw(10) << "qty"
+         << setw(10) << "price\n";
     cout << "-----------------------------------\n";
-	
+
     for (const auto& i : inventory) {
         cout << left << setw(20) << i.name
              << setw(10) << i.quantity
              << "$" << fixed << setprecision(2) << i.price << endl;
     }
 }
-// ======================
-// Item search karna
-// ======================
-void searchitem(const vector<Item>& inventory) {
+
+// item search karne ka function
+void searchitem(const vector<item>& inventory) {
     string name;
-    cout << "\nsearch karne ke liye item ka naam enter karein: ";
-    clearInput();
+
+    cout << "\nsearch ke liye item ka naam enter karein: ";
+    clearinput();
     getline(cin, name);
-	
+
+    // user input ko lowercase mein convert kar diya
+    string searchname = tolowercase(name);
+
     for (const auto& i : inventory) {
-        if (item.name == name) {
-            cout << "\nItem mil gaya!\n";
-            cout << "Name: " << i.name << endl;
-            cout << "Quantity: " << i.quantity << endl;
-            cout << "Price: $" << i.price << endl;
+        // har stored name ko bhi lowercase mein convert kar rahe hain
+        if (tolowercase(i.name) == searchname) {
+            cout << "\nitem mil gaya!\n";
+            cout << "name: " << i.name << endl;
+            cout << "quantity: " << i.quantity << endl;
+            cout << "price: $" << i.price << endl;
             return;
         }
     }
-    cout << "item nahi mila \n";
+    cout << "item nahi mila\n";
 }
-// ======================
-// Quantity update karna
-// ======================
-void updatequantity(vector<Item>& inventory) {
+
+// quantity update karne ka function
+void updatequantity(vector<item>& inventory) {
     string name;
-    cout << "\nUpdate ke liye item ka naam enter karein: ";
-    clearInput();
+
+    cout << "\nupdate ke liye item ka naam enter karein: ";
+    clearinput();
     getline(cin, name);
 
-    for (auto& item : inventory) {
-        if (item.name == name) {
-            cout << "Nayi quantity enter karein: ";
-            while (!(cin >> item.quantity) || item.quantity < 0) {
-                cout << "galat input, dubara enter karein: ";
-                clearInput();
+    string searchname = tolowercase(name);
+
+    for (auto& i : inventory) {
+        if (tolowercase(i.name) == searchname) {
+            cout << "nayi quantity enter karein: ";
+            while (!(cin >> i.quantity) || i.quantity < 0) {
+                cout << "galat input, dobara enter karein: ";
+                clearinput();
             }
-            cout << "Quantity update ho gayi!\n";
+            cout << "quantity update ho gayi!\n";
             return;
         }
     }
-    cout << "item nahi mila \n";
+    cout << "item nahi mila\n";
 }
 
-// ======================
-// Item delete karna
-// ======================
-void deleteitem(vector<Item>& inventory) {
+// item delete karne ka function
+void deleteitem(vector<item>& inventory) {
     string name;
-    cout << "\nDelete ke liye item ka naam enter karein: ";
-    clearInput();
+
+    cout << "\ndelete ke liye item ka naam enter karein: ";
+    clearinput();
     getline(cin, name);
 
-    for (auto it = inventory.begin(); it != inventory.end(); ++it) {
-        if (it->name == name) {
+    string searchname = tolowercase(name);
+
+    for (auto it=inventory.begin(); it!=inventory.end(); ++it) {
+        if (tolowercase(it->name) == searchname) {
             inventory.erase(it);
-            cout << "Item delete ho gaya!\n";
+            cout << "item delete ho gaya!\n";
             return;
         }
     }
-    cout << "item nahi mila \n";
+    cout << "item nahi mila\n";
 }
-// ======================
-// Username aur password fixed rakhe hain mene
-// ======================
-bool adminlogin() {
-    string u,p;
 
-    cout << "===== Admin Login =====\n";
-    cout << "Username: ";
+// simple admin login system
+bool adminlogin() {
+    string u, p;
+
+    cout << "===== admin login =====\n";
+    cout << "username: ";
     cin >> u;
-    cout << "Password: ";
+    cout << "password: ";
     cin >> p;
-	
-    // Simple hardcoded login
-    if (u == "admin" && p == "1234") {
-        cout << "\nLogin successful!\n";
+
+    if (u == "admin" && p == "12345") {
+        cout << "\nlogin successful!\n";
         return true;
     } else {
-        cout << "\ngalat username ya password enter kia h apne\n";
+        cout << "\ngalat username ya password\n";
         return false;
     }
 }
-// ======================
-// Main Function
-// ======================
+
 int main() {
-    vector<Item> inventory;
-    // File se purana data load hoga
+    vector<item> inventory;
+
+    // purana data file se load ho raha hai
     loadfromfile(inventory);
-    // Pehle login hoga
-    if (!adminlogin()) {
-        return 0; // Agar login fail to program band
-	}
 	
+    // pehle login hoga
+    if (!adminlogin()) return 0;
     int choice;
     do {
-        cout << "\n====== Inventory Management System ======\n";
-        cout << "1. Add Item\n";
-        cout << "2. Display Inventory\n";
-        cout << "3. Search Item\n";
-        cout << "4. Update Quantity\n";
-        cout << "5. Delete Item\n";
-        cout << "6. Exit\n";
-        cout << "Choice enter karein: ";
-
+        cout << "\n====== inventory management system ======\n";
+        cout << "1. add item\n";
+        cout << "2. display inventory\n";
+        cout << "3. search item\n";
+        cout << "4. update quantity\n";
+        cout << "5. delete item\n";
+        cout << "6. exit\n";
+        cout << "choice enter karein: ";
+		
         while (!(cin >> choice)) {
-            cout << "Galat input. Dobara number enter karein: ";
-            clearInput();
+            cout << "galat input. dobara number enter karein: ";
+            clearinput();
         }
 
         switch (choice) {
@@ -207,13 +219,12 @@ int main() {
             case 4: updatequantity(inventory); break;
             case 5: deleteitem(inventory); break;
             case 6:
-                savetofile(inventory); // Exit se pehle data save
-                cout << "\nprogram band ho raha hai... \n";
+                savetofile(inventory);
+                cout << "\nprogram band ho raha hai...\n";
                 break;
             default:
-                cout << "Invalid choice.\n";
+                cout << "invalid choice\n";
         }
     } while (choice != 6);
     return 0;
 }
-
