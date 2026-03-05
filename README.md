@@ -45,7 +45,7 @@ This project allows an admin to manage inventory items including adding, updatin
 ## 📂 Project Structure
 
 ```
-Inventory-Management-System/
+Inventory-Management-System-PF-CPP-Project/
 │
 ├── Source.cpp
 ├── inventory.txt   (Auto-generated)
