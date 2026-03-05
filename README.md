@@ -70,7 +70,7 @@ Password: 12345
 1. Clone the repository:
 
 ```
-git clone https://github.com/your-username/Inventory-Management-System.git
+git clone https://github.com/kashifraza01/Inventory-Management-System-PF-CPP-Project.git
 ```
 
 2. Open `main.cpp`
