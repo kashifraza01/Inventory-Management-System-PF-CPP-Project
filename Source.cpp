@@ -82,7 +82,7 @@ public:
 int main(){
     inventorysystem s; if(!s.adminlogin()) return 0;
     int choice; do{
-        cout<<"\n====== inventory management s ======\n1.add item\n2.display inventory\n3.search item\n4.update quantity\n5.delete item\n6.sort inventory\n7.exit\nchoice enter karein: ";
+        cout<<"\n====== inventory management system ======\n1.add item\n2.display inventory\n3.search item\n4.update quantity\n5.delete item\n6.sort inventory\n7.exit\nchoice enter karein: ";
         while(!(cin>>choice)){cout<<"galat input,dobara number enter karein: "; cin.clear(); cin.ignore(numeric_limits<streamsize>::max(),'\n');}
         switch(choice){case 1: s.additem(); break; case 2: s.displayinventory(); break; case 3: s.searchitem(); break; case 4: s.updatequantity(); break; case 5: s.deleteitem(); break; case 6: s.sortinventory(); break; case 7: cout<<"program band ho raha hai...\n"; break; default: cout<<"invalid choice\n";}
     }while(choice!=7); return 0;
