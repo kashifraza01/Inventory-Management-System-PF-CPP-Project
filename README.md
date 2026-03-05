@@ -129,29 +129,10 @@ Price
 
 * Role-based login (Admin/User)
 * Price update option
-* GUI version (Qt / C# / JavaFX)
+* GUI version Java FX
 * Database integration (MySQL)
 * Sales & Billing Module
 * Stock alerts when quantity is low
-
----
-
-## 📌 Why This Project?
-
-This project demonstrates:
-
-* Strong understanding of OOP
-* Practical use of File Handling
-* Input validation techniques
-* STL usage
-* Real-world mini inventory system logic
-
-Perfect for:
-
-* 💼 Resume
-* 🔗 LinkedIn Projects
-* 🎓 Semester Project
-* 🧪 OOP / Programming Fundamentals Lab
 
 ---
 
