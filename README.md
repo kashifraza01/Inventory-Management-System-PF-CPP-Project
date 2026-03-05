@@ -47,7 +47,7 @@ This project allows an admin to manage inventory items including adding, updatin
 ```
 Inventory-Management-System/
 │
-├── main.cpp
+├── Source.cpp
 ├── inventory.txt   (Auto-generated)
 └── README.md
 ```
@@ -73,14 +73,14 @@ Password: 12345
 git clone https://github.com/kashifraza01/Inventory-Management-System-PF-CPP-Project.git
 ```
 
-2. Open `main.cpp`
+2. Open `Source.cpp`
 3. Compile & Run
 
 OR using terminal:
 
 ```
-g++ main.cpp -o inventory
-inventory.exe
+g++ Source.cpp -o Source
+Source.exe
 ```
 
 ---
