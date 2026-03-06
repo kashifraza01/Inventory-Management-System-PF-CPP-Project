@@ -57,7 +57,7 @@ Inventory-Management-System-PF-CPP-Project/
 ## 📸 Application Screenshots
 
 <p align="center">
-  <img src="ss/1.png" width="45%">
+  <img src="ss/1.PNG" width="45%">
   <img src="ss/2.png" width="45%">
 </p>
 
