@@ -59,9 +59,6 @@ Inventory-Management-System-PF-CPP-Project/
 <p align="center">
   <img src="ss/1.PNG" width="45%">
   <img src="ss/2.PNG" width="45%">
-</p>
-
-<p align="center">
   <img src="ss/3.PNG" width="45%">
   <img src="ss/4.PNG" width="45%">
   <img src="ss/5.PNG" width="45%">
